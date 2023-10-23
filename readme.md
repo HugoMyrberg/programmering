@@ -26,6 +26,7 @@ inget va svårt
 Gjorde: 
 
 ### 7040 in- och utmaning
+Fil: 7040 in- och utmatning.py
 
 Exempel:
 
