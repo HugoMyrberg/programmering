@@ -166,7 +166,8 @@ elif svar < 42:
 else:
     print("rätt")
 
-    Det gick bra men det va lite svårt eftersom allt är nytt för mig
+
+Det gick bra men det va lite svårt eftersom allt är nytt för mig
 
 
 
