@@ -26,7 +26,7 @@ inget va svårt
 Gjorde: 
 
 ### 7040 in- och utmaning
-Fil: uppgift 1.py
+### Fil: uppgift 1.py
 
 Exempel:
 
