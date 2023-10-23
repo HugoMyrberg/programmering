@@ -9,3 +9,4 @@ while i < 5:
     print("Summan av tärningskasten är:", summa)
     i = i + 1
 
+
