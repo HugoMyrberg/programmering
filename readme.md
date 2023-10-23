@@ -16,23 +16,22 @@ Gick bra.
 
 
 
-23 08 28 (blir H2)
+23 08 28 
 -------
-Installerade Python - gick bra - följde video.
+
+Installerade Python 
+det gick bra
+inget va svårt
 
 Gjorde: 
 
-### 7020 pyton som miniräknare - gick bra (blir H3)
-###  7025 behov av variabler - ok
+### 7040 in- och utmaning
+
 Exempel:
 
-bredd = 20
+a=20
+b=25
+print(a)
+print(b)
 
-### 7030 datatyper och funktionsanrop 
-Exempel i  Python-konsollen:
 
-    (inskjutet 4 mellanslag gör att det formateras som kod)
-    >>> type(4)
-    <class 'int'>
-
-    Datatyper: int, float, str och bool
