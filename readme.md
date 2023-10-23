@@ -158,7 +158,7 @@ Gjorde:
 
 Exempel:
 
-    svar = int(input("skriv ett heltal"))
+svar = int(input("skriv ett heltal"))
 if svar > 42:
     print ("för stort")
 elif svar < 42:
