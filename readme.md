@@ -2,6 +2,25 @@ Loggbok
 =========================
 
 
+
+23 11 06
+---
+
+### 7100-listor
+
+exempel:
+x = [2, 3, 2, 4, 1]
+x [1] = 5
+x [-1] = 6
+x.append (4)
+print(x)
+medel = sum(x) / len(x)
+print(medel)
+x.sort()
+print("sorterad:", x)
+
+Det gick inte så bra då jag tycker detta är väldigt svårt och jag fattar inte riktigt hur man gör
+
 23 10 23
 ---
 
