@@ -1,4 +1,6 @@
-a= [1, 4, 2]
-print(len(a))
-a.pop()
-print(a)
+x = [1, 0, 1, 1, 0]
+for y in x:
+    if y == 1:
+        print ("hej")
+    else:
+        print(y)
