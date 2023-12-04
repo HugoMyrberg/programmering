@@ -1,6 +1,40 @@
 Loggbok 
 =========================
 
+23 12 4
+---
+
+Jag har övat på test 10. Det går bra men jag tycker det är lite svårt med allt men det går bra.
+
+
+23 11 27
+---
+Jag övade på test 7 som jag hade omprov på och test 9.
+Det gick bra och va ganska lätt.
+
+
+
+23 11 20
+---
+
+# 7100-listor
+
+Nu går det bra jag har fattat hur allt funkar.
+
+ Exempel:
+ import random 
+tärningar = []
+for i in range(20):
+    kast = random.randint(1, 6)
+    tärningar.append(kast)
+
+
+23 11 13
+---
+
+### 7100-listor
+
+Det går bättre och bättre, jag har börjat förstå hur det funkar.
 
 
 23 11 06
