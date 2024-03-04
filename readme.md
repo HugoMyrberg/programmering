@@ -2,6 +2,8 @@ Loggbok
 =========================
    
 24 2 08
+
+verqveqvb
 ---
 
 Idag började jag att kolla på mitt egenprojekt.
