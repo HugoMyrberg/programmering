@@ -1,6 +1,57 @@
 Loggbok 
 =========================
    
+24 2 08
+---
+
+Idag började jag att kolla på mitt egenprojekt.
+
+Jag har valt att göra spelet Black Jack som mitt egenprojekt. Mina mål kommer att vara dessa.
+Steg 1 är att skapa en Kortlek med fyra 1:or, fyra 2:or, osv... uptill fyra 13. 
+Steg 2 blir att lägga till funktionen, blanda kortleken.
+Steg 3 är att lägga till funktionen, dra ett kort ur leken.
+Steg 4 blir, ge spelaren 2 kort.
+Steg 5 är, ge datorn 1 kort.
+steg 6 är att lägga till så att spelaren kan välja hit eller stand.
+steg 7 Datorn väljer hit eller stand
+steg 8 Vem vinner. Enkel summa. Korten värda 1 - 13.
+steg 9 lägga till funktionen så att man kan lägga in och spela om pengar.
+steg 10 Kunna spela en gång till.
+steg 11 ange värde på korten, Knekt, dam, kung värda 10.
+steg 12 Ess är värt 1 eller 11 beroende på.
+steg 13 lägga till så man kan splitta sin handen om man får två lika. 
+steg 14 lägga till eventuella fler regler.
+
+Det kan tillkomma fler mål under tiden eller så kommer något att ändras. 
+
+Än så länge har det gått bra och detta verkar roligt. 
+
+
+24 1 22
+---
+
+Jag klarade test 10 förra lektinen så idag har jag börjat med mitt egenprojekt. Jag läste igenom uppgiften för att få en överblick om vad det är jag skall göra. 
+
+
+
+24 1 15
+---
+
+Idag har jag fortsatt öva på test 10. Det går såder då jag tycker det är svårt och det finns inte så mycket varierande träningsundelag vilket gör att det blir svårt att förstå hur man skall göra. 
+
+Exempel:
+def maximum(a, b):
+    # Funktionen maximum tar två argument a och b och returnerar det största av dem.
+    return max(a, b)
+
+def addera(x, y):
+    # Funktionen addera tar två argument x och y och returnerar deras summa.
+    return x + y
+
+def hej(namn):
+    # Funktionen hej tar ett argument namn och skriver ut en hälsning med det givna namnet.
+    print("hej", namn)
+
 23 12 4
 ---
 
