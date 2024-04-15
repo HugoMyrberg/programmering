@@ -1,170 +1,183 @@
 import random
 
-class Card:
-    def __init__(self, value):
-        self.value = value
+class Kort:
+    def __init__(self, värde):
+        self.värde = värde
 
     def __str__(self):
-        if self.value == 1:
-            return 'Ace'
-        elif self.value == 10:
-            return 'Jack'
-        elif self.value == 10:
-            return 'Queen'
-        elif self.value == 10:
-            return 'King'
+        if self.värde == 1:
+            return 'Ess'
+        elif self.värde == 10:
+            return 'Knekt'
+        elif self.värde == 10:
+            return 'Dam'
+        elif self.värde == 10:
+            return 'Kung'
         else:
-            return str(self.value)
+            return str(self.värde)
 
-class Deck:
+class Kortlek:
     def __init__(self):
-        self.cards = [Card(value) for value in range(1, 11)] * 4
+        self.kort = [Kort(värde) for värde in range(1, 11)] * 4
 
-    def shuffle(self):
-        random.shuffle(self.cards)
+    def blanda(self):
+        random.shuffle(self.kort)
 
-    def draw_card(self):
-        return self.cards.pop()
+    def dra_kort(self):
+        return self.kort.pop()
 
-class Player:
-    def __init__(self, name):
-        self.name = name
+class Spelare:
+    def __init__(self, namn):
+        self.namn = namn
         self.hand = []
 
-    def draw(self, deck, num_cards=1):
-        for _ in range(num_cards):
-            self.hand.append(deck.draw_card())
+    def dra(self, kortlek, antal_kort=1):
+        for _ in range(antal_kort):
+            self.hand.append(kortlek.dra_kort())
 
-    def show_hand(self, hide_first_card=False):
-        print(f"{self.name}'s hand:", end=' ')
-        if hide_first_card:
-            print("Hidden, ", end='')
-            for card in self.hand[1:]:
-                print(card, end=', ')
+    def visa_hand(self, dölj_första_kort=False):
+        print(f"{self.namn}s hand:", end=' ')
+        if dölj_första_kort:
+            print("Dolt, ", end='')
+            for kort in self.hand[1:]:
+                print(kort, end=', ')
         else:
-            for card in self.hand:
-                print(card, end=', ')
-        print(f"Total value: {self.hand_value()}")
+            for kort in self.hand:
+                print(kort, end=', ')
+        print(f"Totalt värde: {self.hand_värde()}")
 
-    def hand_value(self):
-        total = sum(card.value for card in self.hand)
-        aces = sum(1 for card in self.hand if card.value == 1)
-        while total <= 11 and aces:
-            total += 10
-            aces -= 1
-        return total
+    def hand_värde(self):
+        totalt = sum(kort.värde for kort in self.hand)
+        ess = sum(1 for kort in self.hand if kort.värde == 1)
+        while totalt <= 11 and ess:
+            totalt += 10
+            ess -= 1
+        return totalt
 
 class Blackjack:
-    def __init__(self, player_name, money=100):
-        self.player = Player(player_name)
-        self.dealer = Player("Dealer")
-        self.deck = Deck()
-        self.money = money
+    def __init__(self, spelare_namn, pengar=100):
+        self.spelare = Spelare(spelare_namn)
+        self.dealer = Spelare("Dealer")
+        self.kortlek = Kortlek()
+        self.pengar = pengar
 
-    def deal_initial_cards(self):
-        self.deck.shuffle()
-        self.player.hand = []
+    def dela_ut_inledande_kort(self):
+        self.kortlek.blanda()
+        self.spelare.hand = []
         self.dealer.hand = []
-        self.player.draw(self.deck, 2)
-        self.dealer.draw(self.deck, 2)
+        self.spelare.dra(self.kortlek, 2)
+        self.dealer.dra(self.kortlek, 2)
 
-        # Check if player gets blackjack
-        if self.check_blackjack() == 1:
-            self.money += bet
+        # Kontrollera om spelaren får blackjack
+        if self.kontrollera_blackjack() == 1:
+            self.pengar += insats
             return True
-        elif self.check_blackjack() == -1:
-            self.money -= bet
+        elif self.kontrollera_blackjack() == -1:
+            self.pengar -= insats
             return True
         return False
 
-    def check_blackjack(self):
-        if len(self.player.hand) == 2 and self.player.hand_value() == 21:
-            print("Blackjack! You win!")
+    def kontrollera_blackjack(self):
+        if len(self.spelare.hand) == 2 and self.spelare.hand_värde() == 21:
+            print("Blackjack! Du vinner!")
             return 1
-        elif len(self.dealer.hand) == 2 and self.dealer.hand_value() == 21:
-            print("Dealer has Blackjack! You lose.")
+        elif len(self.dealer.hand) == 2 and self.dealer.hand_värde() == 21:
+            print("Dealern har Blackjack! Du förlorar.")
             return -1
         return 0
 
-    def player_turn(self):
-        if self.check_blackjack() == 1:
-            return  # Player automatically wins with blackjack
+    def spelarens_runda(self):
+        if self.kontrollera_blackjack() == 1:
+            return  # Spelaren vinner automatiskt med blackjack
 
         while True:
-            self.player.show_hand()
-            choice = input("Hit or stand? (h/s): ").lower()
-            if choice == 'h':
-                self.player.draw(self.deck)
-                if self.player.hand_value() > 21:
-                    print("Busted! You lose.")
+            self.spelare.visa_hand()
+            val = input("Ta eller stanna? (t/s): ").lower()
+            if val == 't':
+                self.spelare.dra(self.kortlek)
+                if self.spelare.hand_värde() > 21:
+                    print("Över 21! Du förlorar.")
                     return -1
-            elif choice == 's':
+            elif val == 's':
                 break
+            else:
+                print("Okänt tecken, försök igen")
 
-    def dealer_turn(self):
-        while self.dealer.hand_value() < 17:
-            self.dealer.draw(self.deck)
+    def dealerns_runda(self):
+        while self.dealer.hand_värde() < 17:
+            self.dealer.dra(self.kortlek)
 
-    def determine_winner(self):
-        player_score = self.player.hand_value()
-        dealer_score = self.dealer.hand_value()
+    def avgör_vinnaren(self):
+        spelarens_poäng = self.spelare.hand_värde()
+        dealerns_poäng = self.dealer.hand_värde()
 
-        if player_score > 21:
-            print("You busted! Dealer wins.")
+        if spelarens_poäng > 21:
+            print("Du gick över 21! Dealern vinner.")
             return -1
-        elif dealer_score > 21:
-            print("Dealer busted! You win.")
+        elif dealerns_poäng > 21:
+            print("Dealern gick över 21! Du vinner.")
             return 1
-        elif player_score > dealer_score:
-            print("You win!")
+        elif spelarens_poäng > dealerns_poäng:
+            print("Du vinner!")
             return 1
-        elif player_score < dealer_score:
-            print("Dealer wins.")
+        elif spelarens_poäng < dealerns_poäng:
+            print("Dealern vinner.")
             return -1
         else:
-            print("It's a tie.")
+            print("Det är oavgjort.")
             return 0
 
-    def play(self):
+    def spela(self):
         while True:
-            print("\nNew round!")
-            print(f"Your money: {self.money}")
-            bet = int(input("Place your bet: "))
-            if bet > self.money:
-                print("You don't have enough money.")
-                continue
-
-            if self.deal_initial_cards():
-                continue
-
-            self.player_turn()
-            if self.player.hand_value() <= 21:
-                self.dealer_turn()
-                result = self.determine_winner()
+            print("\nNy omgång!")
+            print(f"Dina pengar: {self.pengar}")
+            svar = input("Placera din insats: ")
+            if svar.isnumeric():
+                insats = int(svar)
+                if insats <= self.pengar:
+                    break
+                else:
+                    print("Du har inte tillräckligt med pengar.")
             else:
-                result = -1
+                print("Felaktig inmatning. Var god ange en numerisk insats.")
 
-            print("\nDealer's hand:")
-            self.dealer.show_hand()
-            print("\nYour hand:")
-            self.player.show_hand()
+        if self.dela_ut_inledande_kort():
+            return
 
-            if result == 1:
-                print("\nYou won this round!")
-                self.money += bet
-            elif result == -1:
-                print("\nYou lost this round!") 
-                self.money -= bet
+        self.spelarens_runda()
+        if self.spelare.hand_värde() <= 21:
+            self.dealerns_runda()
+            resultat = self.avgör_vinnaren()
+        else:
+            resultat = -1
 
-            if self.money <= 0:
-                print("You're out of money! Game over.")
-                break
+        print("\nDealerns hand:")
+        self.dealer.visa_hand()
+        print("\nDin hand:")
+        self.spelare.visa_hand()
 
-            print(f"\nYour money: {self.money}")
-            play_again = input("Do you want to play again? (y/n): ").lower()
-            if play_again != 'y':
-                break
+        if resultat == 1:
+            print("\nDu vann denna omgång!")
+            self.pengar += insats
+        elif resultat == -1:
+            print("\nDu förlorade denna omgång!") 
+            self.pengar -= insats
 
-player_name = input("What's your name? ")
-game = Blackjack(player_name)
-game.play()
+        if self.pengar <= 0:
+            print("Du är utan pengar! Spelet är över.")
+            return
+
+        print(f"\nDina pengar: {self.pengar}")
+        spela_igen = input("Vill du spela igen? (j/n): ").lower()
+        if spela_igen == 'n':
+            return
+        else:
+            print("Vi kör igen")
+
+spelare_namn = input("Vad är ditt namn? ")
+spel = Blackjack(spelare_namn)
+for i in range(100):
+    spel.spela()
+
+    
+

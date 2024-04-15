@@ -1,84 +1,105 @@
 Loggbok 
 =========================
 
+24 04 11
+---
+
+Förra lektionen fick jag lite grejer av Rikard som han tycker att jag skulle ändra eller lägga till i min kod och det var bland annat ändra så att min kod inte krashar om man skulle råka skriva in en siffra eller något konstigt tecken istället för ord. Jag har även fixat så man kan spela flera gånger i rad. 
+
+Det jag fick lägga in såg ungefär ut såhär beroende på var i koden det skulle fixas.
+            else:
+                print("Felaktig inmatning. Var god ange en numerisk insats.")
+
+Det gick helt okej idag men jag fick diskuttera och bolla lite ideer med Rikard för att koden skulle bli så enkel och lätt som möjligt. 
+
+
+
 24 3 21
 ---
 
-Dagens lektion har jag fortsatt med mitt black jack projekt. Det går sakta men framåt. Det jag har fixat idag är att kolla igenom så att allt fungerar. Jag har 
+Dagens lektion har jag fortsatt med mitt black jack projekt. Det går sakta men framåt. Det jag har fixat idag är att kolla igenom så att allt fungerar som det skall och det gör det. Jag har även frågat Rikard vad han tycker att jag skall lägga till eller ändra på. 
 
 
 24 3 14
 ---
 
-Idag har jag lagt in så man skall kunna spela mer en än gång, ändrat så att värdet på korten, Knekt, dam, kung är värda 10 istället för 13, samt att ess är värt 1 eller 11 beroende på spelarens totala hand i poäng. Det sista jag gjorde var även att lägga till så man kan splita handen om man får två lika dana. 
+Idag har jag lagt in så man skall kunna spela mer en än gång och lagt till så datorn väljer vem som vinner. Det sista jag gjorde var även att lägga till så man kan splita handen om man får två lika dana. 
 
-    def dealer_turn(self):
-        while self.dealer.hand_value() < 17:
-            self.dealer.draw(self.deck)
+    def dealerns_runda(self):
+        while self.dealer.hand_värde() < 17:
+            self.dealer.dra(self.kortlek)
 
-    def determine_winner(self):
-        player_score = self.player.hand_value()
-        dealer_score = self.dealer.hand_value()
+    def avgör_vinnaren(self):
+        spelarens_poäng = self.spelare.hand_värde()
+        dealerns_poäng = self.dealer.hand_värde()
 
-        if player_score > 21:
-            print("You busted! Dealer wins.")
+        if spelarens_poäng > 21:
+            print("Du gick över 21! Dealern vinner.")
             return -1
-        elif dealer_score > 21:
-            print("Dealer busted! You win.")
+        elif dealerns_poäng > 21:
+            print("Dealern gick över 21! Du vinner.")
             return 1
-        elif player_score > dealer_score:
-            print("You win!")
+        elif spelarens_poäng > dealerns_poäng:
+            print("Du vinner!")
             return 1
-        elif player_score < dealer_score:
-            print("Dealer wins.")
+        elif spelarens_poäng < dealerns_poäng:
+            print("Dealern vinner.")
             return -1
         else:
-            print("It's a tie.")
+            print("Det är oavgjort.")
             return 0
 
-    def play(self):
+    def spela(self):
         while True:
-            print("\nNew round!")
-            print(f"Your money: {self.money}")
-            bet = int(input("Place your bet: "))
-            if bet > self.money:
-                print("You don't have enough money.")
-                continue
+            print("\nNy omgång!")
+            print(f"Dina pengar: {self.pengar}")
+            svar = input("Placera din insats: ")
+            if svar.isnumeric():
+                insats = int(svar)
+                if insats <= self.pengar:
+                    break
+                else:
+                    print("Du har inte tillräckligt med pengar.")
 
-            if self.deal_initial_cards():
-                continue
+        if self.dela_ut_inledande_kort():
+            return
 
-            self.player_turn()
-            if self.player.hand_value() <= 21:
-                self.dealer_turn()
-                result = self.determine_winner()
-            else:
-                result = -1
+        self.spelarens_runda()
+        if self.spelare.hand_värde() <= 21:
+            self.dealerns_runda()
+            resultat = self.avgör_vinnaren()
+        else:
+            resultat = -1
 
-            print("\nDealer's hand:")
-            self.dealer.show_hand()
-            print("\nYour hand:")
-            self.player.show_hand()
+        print("\nDealerns hand:")
+        self.dealer.visa_hand()
+        print("\nDin hand:")
+        self.spelare.visa_hand()
 
-            if result == 1:
-                print("\nYou won this round!")
-                self.money += bet
-            elif result == -1:
-                print("\nYou lost this round!") 
-                self.money -= bet
+        if resultat == 1:
+            print("\nDu vann denna omgång!")
+            self.pengar += insats
+        elif resultat == -1:
+            print("\nDu förlorade denna omgång!") 
+            self.pengar -= insats
 
-            if self.money <= 0:
-                print("You're out of money! Game over.")
-                break
+        if self.pengar <= 0:
+            print("Du är utan pengar! Spelet är över.")
+            return
 
-            print(f"\nYour money: {self.money}")
-            play_again = input("Do you want to play again? (y/n): ").lower()
-            if play_again != 'y':
-                break
+        print(f"\nDina pengar: {self.pengar}")
+        spela_igen = input("Vill du spela igen? (j/n): ").lower()
+        if spela_igen == 'n':
+            return
+        else:
+            print("Vi kör igen")
 
-player_name = input("What's your name? ")
-game = Blackjack(player_name)
-game.play()
+spelare_namn = input("Vad är ditt namn? ")
+spel = Blackjack(spelare_namn)
+for i in range(100):
+    spel.spela()
+
+Idag kändes det väldigt bra och allting flöt på och gick väldigt fort och bra. Det va lite krångligt på några ställen men efter lite snabb googling hitade jag någon lösning och impleterade eller ändrade det i min kod. 
 
 24 3 7
 ---
@@ -86,118 +107,120 @@ game.play()
 Dagens lektion ägnade jag åt att fortsätta med mitt black jack projekt. Idag la jag in så spelaren och datorn kan välja hit/h eller stand/s, att man kan välja hur mycket pengar man vill spela om och att datorn skall räkna ut vem som vinner. Idag har det gått bra jag känner mig mer och mer bekväm med att arbeta och der blir enklare och enklare att felsöka och hitta vad jag skall ändra. 
 
 class Blackjack:
-    def __init__(self, player_name, money=100):
-        self.player = Player(player_name)
-        self.dealer = Player("Dealer")
-        self.deck = Deck()
-        self.money = money
+    def __init__(self, spelare_namn, pengar=100):
+        self.spelare = Spelare(spelare_namn)
+        self.dealer = Spelare("Dealer")
+        self.kortlek = Kortlek()
+        self.pengar = pengar
 
-    def deal_initial_cards(self):
-        self.deck.shuffle()
-        self.player.hand = []
+    def dela_ut_inledande_kort(self):
+        self.kortlek.blanda()
+        self.spelare.hand = []
         self.dealer.hand = []
-        self.player.draw(self.deck, 2)
-        self.dealer.draw(self.deck, 2)
+        self.spelare.dra(self.kortlek, 2)
+        self.dealer.dra(self.kortlek, 2)
 
-        # Check if player gets blackjack
-        if self.check_blackjack() == 1:
-            self.money += bet
+        # Kontrollera om spelaren får blackjack
+        if self.kontrollera_blackjack() == 1:
+            self.pengar += insats
             return True
-        elif self.check_blackjack() == -1:
-            self.money -= bet
+        elif self.kontrollera_blackjack() == -1:
+            self.pengar -= insats
             return True
         return False
 
-    def check_blackjack(self):
-        if len(self.player.hand) == 2 and self.player.hand_value() == 21:
-            print("Blackjack! You win!")
+    def kontrollera_blackjack(self):
+        if len(self.spelare.hand) == 2 and self.spelare.hand_värde() == 21:
+            print("Blackjack! Du vinner!")
             return 1
-        elif len(self.dealer.hand) == 2 and self.dealer.hand_value() == 21:
-            print("Dealer has Blackjack! You lose.")
+        elif len(self.dealer.hand) == 2 and self.dealer.hand_värde() == 21:
+            print("Dealern har Blackjack! Du förlorar.")
             return -1
         return 0
 
-    def player_turn(self):
-        if self.check_blackjack() == 1:
-            return  # Player automatically wins with blackjack
+    def spelarens_runda(self):
+        if self.kontrollera_blackjack() == 1:
+            return  # Spelaren vinner automatiskt med blackjack
 
         while True:
-            self.player.show_hand()
-            choice = input("Hit or stand? (h/s): ").lower()
-            if choice == 'h':
-                self.player.draw(self.deck)
-                if self.player.hand_value() > 21:
-                    print("Busted! You lose.")
+            self.spelare.visa_hand()
+            val = input("Ta eller stanna? (t/s): ").lower()
+            if val == 't':
+                self.spelare.dra(self.kortlek)
+                if self.spelare.hand_värde() > 21:
+                    print("Över 21! Du förlorar.")
                     return -1
-            elif choice == 's':
+            elif val == 's':
                 break
 
+Idag fick jag mycket gjort vilket känns väldigt bra. Det var ganska svårt och jobbigt men med hjälp av rikard och lite googling hitade jag lösningar som jag kunde lägga in i min kod för att få allt att fungera.  
 
 24 2 22
 ---
 
 Idag fortsatte jag men mitt proejkt. Idag stog det på listan att lägga till så att datorn delar ut korten till spelaren + datorn. Det går framåt men det är svårt och tar lång tid. 
 
- def draw_card(self):
-        return self.cards.pop()
+ def dra_kort(self):
+        return self.kort.pop()
 
-class Player:
-    def __init__(self, name):
-        self.name = name
+class Spelare:
+    def __init__(self, namn):
+        self.namn = namn
         self.hand = []
 
-    def draw(self, deck, num_cards=1):
-        for _ in range(num_cards):
-            self.hand.append(deck.draw_card())
+    def dra(self, kortlek, antal_kort=1):
+        for _ in range(antal_kort):
+            self.hand.append(kortlek.dra_kort())
 
-    def show_hand(self, hide_first_card=False):
-        print(f"{self.name}'s hand:", end=' ')
-        if hide_first_card:
-            print("Hidden, ", end='')
-            for card in self.hand[1:]:
-                print(card, end=', ')
+    def visa_hand(self, dölj_första_kort=False):
+        print(f"{self.namn}s hand:", end=' ')
+        if dölj_första_kort:
+            print("Dolt, ", end='')
+            for kort in self.hand[1:]:
+                print(kort, end=', ')
         else:
-            for card in self.hand:
-                print(card, end=', ')
-        print(f"Total value: {self.hand_value()}")
+            for kort in self.hand:
+                print(kort, end=', ')
+        print(f"Totalt värde: {self.hand_värde()}")
 
-    def hand_value(self):
-        total = sum(card.value for card in self.hand)
-        aces = sum(1 for card in self.hand if card.value == 1)
-        while total <= 11 and aces:
-            total += 10
-            aces -= 1
-        return total
+    def hand_värde(self):
+        totalt = sum(kort.värde for kort in self.hand)
+        ess = sum(1 for kort in self.hand if kort.värde == 1)
+        while totalt <= 11 and ess:
+            totalt += 10
+            ess -= 1
+        return totalt
+
 
 24 2 15
 ---
 
-Under dagens lektion började jag med mitt projekt, jag började boka av min lista. Det var ganska svårt men efte mycket googlande och testande funkade det. Jag har lärt mig mycket om hur man tar sig vidare när man kör fast och att inte ge upp. 
+Under dagens lektion började jag med mitt projekt, jag började boka av min lista. Det var ganska svårt men efte mycket googlande och testande funkade det. Jag har lärt mig mycket om hur man tar sig vidare när man kör fast och att inte ge upp. Jag började att lägga in en import random där jag la in en kortlek med alla korts värden som blandas inan varje omgång.0o
 
 import random
 
-class Card:
-    def __init__(self, value):
-        self.value = value
+class Kort:
+    def __init__(self, värde):
+        self.värde = värde
 
     def __str__(self):
-        if self.value == 1:
-            return 'Ace'
-        elif self.value == 10:
-            return 'Jack'
-        elif self.value == 10:
-            return 'Queen'
-        elif self.value == 10:
-            return 'King'
+        if self.värde == 1:
+            return 'Ess'
+        elif self.värde == 10:
+            return 'Knekt'
+        elif self.värde == 10:
+            return 'Dam'
+        elif self.värde == 10:
+            return 'Kung'
         else:
-            return str(self.value)
+            return str(self.värde)
 
-class Deck:
+class Kortlek:
     def __init__(self):
-        self.cards = [Card(value) for value in range(1, 11)] * 4
+        self.kort = [Kort(värde) for värde in range(1, 11)] * 4
 
-    def shuffle(self):
-        random.shuffle(self.cards)
+    def blanda(self):
+        random.shuffle(self.kort)
 
    
 24 2 08
@@ -220,6 +243,8 @@ steg 11 ange värde på korten, Knekt, dam, kung värda 10.
 steg 12 Ess är värt 1 eller 11 beroende på.
 steg 13 lägga till så man kan splitta sin handen om man får två lika. 
 steg 14 lägga till eventuella fler regler.
+steg 15 lägg till så man kan spela flera gånger i rad
+steg 16 lägg till så att koden inte krashar om man skriver fel
 
 Det kan tillkomma fler mål under tiden eller så kommer något att ändras. 
 
