@@ -1,6 +1,16 @@
 Loggbok 
 =========================
 
+24 04 15
+---
+
+Idag ändrade jag så att man kan se dealerns första kort. 
+# Visa endast dealerns första kort
+        print("\nDealerns hand:")
+        self.dealer.visa_hand(dölj_första_kort=True) 
+        print("\nDin hand:")
+        self.spelare.visa_hand()
+
 24 04 11
 ---
 
