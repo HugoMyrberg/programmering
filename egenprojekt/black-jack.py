@@ -15,6 +15,7 @@ class Kort:
             return 'Kung'
         else:
             return str(self.värde)
+            #kortens värde
 
 class Kortlek:
     def __init__(self):
@@ -25,6 +26,7 @@ class Kortlek:
 
     def dra_kort(self):
         return self.kort.pop()
+        #vad skall hände med kortleken
 
 class Spelare:
     def __init__(self, namn):
@@ -34,7 +36,7 @@ class Spelare:
     def dra(self, kortlek, antal_kort=1):
         for _ in range(antal_kort):
             self.hand.append(kortlek.dra_kort())
-
+        #visa spelaren hand
     def visa_hand(self, dölj_första_kort=False):
         print(f"{self.namn}s hand:", end=' ')
         if dölj_första_kort:
@@ -53,6 +55,9 @@ class Spelare:
             totalt += 10
             ess -= 1
         return totalt
+        #vad skall hända med spelaren
+
+
 
 class Blackjack:
     def __init__(self, spelare_namn, pengar=100):
@@ -60,6 +65,7 @@ class Blackjack:
         self.dealer = Spelare("Dealer")
         self.kortlek = Kortlek()
         self.pengar = pengar
+        #fixa så man kan välja hur mycket pengar man vill spela om 
 
     def dela_ut_inledande_kort(self):
         self.kortlek.blanda()
@@ -67,6 +73,12 @@ class Blackjack:
         self.dealer.hand = []
         self.spelare.dra(self.kortlek, 2)
         self.dealer.dra(self.kortlek, 2)
+
+        # ändra så att man inte ser dealerns första kort
+        print("\nDealerns hand:")
+        self.dealer.visa_hand(dölj_första_kort=True)
+        print("\nDin hand:")
+        self.spelare.visa_hand()
 
         # Kontrollera om spelaren får blackjack
         if self.kontrollera_blackjack() == 1:
@@ -102,6 +114,7 @@ class Blackjack:
                 break
             else:
                 print("Okänt tecken, försök igen")
+                # ändra här så att ifall man skriver fel tecken så skall proggramet inte krasha
 
     def dealerns_runda(self):
         while self.dealer.hand_värde() < 17:
@@ -132,7 +145,7 @@ class Blackjack:
             print("\nNy omgång!")
             print(f"Dina pengar: {self.pengar}")
             svar = input("Placera din insats: ")
-            if svar.isnumeric():
+            if svar.isnumeric():  #ändra så det ändast tillåts med siffror och lägg till så att koden inte krashar om man skulle råka skriva något annat
                 insats = int(svar)
                 if insats <= self.pengar:
                     break
@@ -140,6 +153,7 @@ class Blackjack:
                     print("Du har inte tillräckligt med pengar.")
             else:
                 print("Felaktig inmatning. Var god ange en numerisk insats.")
+                #ändra även här så ifall man skriver in fel kommando så skall koden inte krasha
 
         if self.dela_ut_inledande_kort():
             return
@@ -155,28 +169,31 @@ class Blackjack:
         self.dealer.visa_hand()
         print("\nDin hand:")
         self.spelare.visa_hand()
+        # visa både spelarens och dealerns hand
 
+
+         #om spelarens resultat är mer en dealerns alltså > 1 så skall spelaren vinna annars vinner dealern
         if resultat == 1:
             print("\nDu vann denna omgång!")
             self.pengar += insats
         elif resultat == -1:
             print("\nDu förlorade denna omgång!") 
             self.pengar -= insats
-
+      #pengar = eller < 0 så skall omgången avslutas och spelar får starta om
         if self.pengar <= 0:
             print("Du är utan pengar! Spelet är över.")
             return
 
         print(f"\nDina pengar: {self.pengar}")
         spela_igen = input("Vill du spela igen? (j/n): ").lower()
-        if spela_igen == 'n':
+        if spela_igen == 'n':  #ändra så att ifall man skriver allt annat en nej (n) så spelar man igen 
             return
         else:
             print("Vi kör igen")
-
+# fixa så att man kan spela fler än en gång
 spelare_namn = input("Vad är ditt namn? ")
 spel = Blackjack(spelare_namn)
-for i in range(100):
+for i in range(100): #räcker det med 100?
     spel.spela()
 
     
