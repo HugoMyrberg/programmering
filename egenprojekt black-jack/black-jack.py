@@ -47,7 +47,7 @@ class Player:
         else:
             for card in self.hand:
                 print(card, end=', ')
-        print(f"Total value: {self.hand_value()}")
+        print(f"\nTotal value: {'Hidden' if hide_first_card else self.hand_value()}")
 
     def hand_value(self):
         total = sum(card.value for card in self.hand)
