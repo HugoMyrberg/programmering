@@ -205,32 +205,33 @@ class Spelare:
 24 2 15
 ---
 
-Under dagens lektion började jag med mitt projekt, jag började boka av min lista. Det var ganska svårt men efte mycket googlande och testande funkade det. Jag har lärt mig mycket om hur man tar sig vidare när man kör fast och att inte ge upp. Jag började att lägga in en import random där jag la in en kortlek med alla korts värden som blandas inan varje omgång.0o
+Under dagens lektion började jag med mitt projekt, jag började boka av min lista. Det var ganska svårt men efte mycket testande funkade det. Jag har lärt mig mycket om hur man tar sig vidare när man kör fast och att inte ge upp. Jag började att lägga in en import random där jag la in en kortlek med alla korts värden som blandas inan varje omgång.
 
 import random
 
-class Kort:
-    def __init__(self, värde):
-        self.värde = värde
+class Card:
+    def __init__(self, value):
+        self.value = value
 
     def __str__(self):
-        if self.värde == 1:
-            return 'Ess'
-        elif self.värde == 10:
-            return 'Knekt'
-        elif self.värde == 10:
-            return 'Dam'
-        elif self.värde == 10:
-            return 'Kung'
+        if self.value == 1:
+            return 'Ace'
+        elif self.value == 10:
+            return 'Jack'
+        elif self.value == 10:
+            return 'Queen'
+        elif self.value == 10:
+            return 'King'
         else:
-            return str(self.värde)
+            return str(self.value)
+            #kortens värde
 
-class Kortlek:
+class Deck:
     def __init__(self):
-        self.kort = [Kort(värde) for värde in range(1, 11)] * 4
+        self.cards = [Card(value) for value in range(1, 11)] * 4
 
-    def blanda(self):
-        random.shuffle(self.kort)
+    def shuffle(self):
+        random.shuffle(self.cards)
 
    
 24 2 08

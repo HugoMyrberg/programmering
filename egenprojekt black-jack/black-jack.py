@@ -76,8 +76,7 @@ class Blackjack:
         # ändra så att man inte ser dealerns första kort
         print("\nDealer's hand:")
         self.dealer.show_hand(hide_first_card=True)
-        print("\nYour hand:")
-        self.player.show_hand()
+    
 
         # Kontrollera om spelaren får blackjack
         if self.check_blackjack() == 1:
