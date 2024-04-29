@@ -20,7 +20,7 @@ Det andra jag fixade var att fixa så att spelarens han inte kommer upp två gå
 24 04 15
 ---
 
-Idag ändrade jag så att man kan se dealerns första kort. 
+Idag ändrade jag så att man kan se dealerns första kort. Det jag gjorde va detta. 
 # Visa endast dealerns första kort
         print("\nDealerns hand:")
         self.dealer.visa_hand(dölj_första_kort=True) 
